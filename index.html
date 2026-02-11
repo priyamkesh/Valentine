@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Valentine?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@400;800&family=Pacifico&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        /* General Reset and Mobile Optimization */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Baloo Da 2', cursive; /* Bengali Font */
+            overflow: hidden;
+            position: relative;
+            /* Deep Pink Gradient Base */
+            background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+        }
+
+        /* --- LAYER 0: AURORA RAYS ANIMATION --- */
+        .ray-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0; /* Deepest layer */
+            pointer-events: none; /* OPTIMIZATION: Ignore mouse events */
+        }
+
+        .ray {
+            position: absolute;
+            width: 150%;
+            height: 60px; 
+            background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255, 255, 255, 0.5), rgba(255,255,255,0));
+            filter: blur(20px);
+            transform-origin: center;
+            opacity: 0.7;
+            /* OPTIMIZATION: Hardware Acceleration */
+            will-change: transform, opacity; 
+            transform: translateZ(0); 
+            animation: wave 8s ease-in-out infinite alternate;
+        }
+
+        .ray:nth-child(1) { top: 20%; left: -20%; transform: rotate(-20deg) translateZ(0); animation-duration: 7s; width: 200%; }
+        .ray:nth-child(2) { top: 50%; left: -20%; transform: rotate(-10deg) translateZ(0); animation-duration: 9s; animation-delay: -2s; width: 180%; }
+        .ray:nth-child(3) { top: 80%; left: -20%; transform: rotate(-30deg) translateZ(0); animation-duration: 11s; animation-delay: -4s; width: 150%; }
+        .ray:nth-child(4) { top: 10%; left: -10%; transform: rotate(15deg) translateZ(0); animation-duration: 15s; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255, 200, 200, 0.4), rgba(255,255,255,0)); }
+
+        @keyframes wave {
+            0% { transform: rotate(-25deg) translateY(0) scaleX(1) translateZ(0); opacity: 0.5; }
+            50% { transform: rotate(-20deg) translateY(30px) scaleX(1.1) translateZ(0); opacity: 0.8; }
+            100% { transform: rotate(-15deg) translateY(-20px) scaleX(1) translateZ(0); opacity: 0.5; }
+        }
+
+        /* --- LAYER 1: FLOATING IMAGES --- */
+        .floating-photos {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1; 
+            pointer-events: none; /* OPTIMIZATION: Ignore interactions */
+        }
+
+        .float-img {
+            position: absolute;
+            width: 110px; 
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            opacity: 0.85; 
+            border: 3px solid white;
+            /* OPTIMIZATION: Hardware Acceleration Hints */
+            will-change: transform;
+            backface-visibility: hidden;
+            perspective: 1000px;
+            animation: floatBob 6s ease-in-out infinite;
+        }
+
+        /* Custom Keyframe for bobbing up and down + rotation */
+        @keyframes floatBob {
+            0% { transform: translateY(0) rotate(var(--r)) translateZ(0); }
+            50% { transform: translateY(-20px) rotate(var(--r)) translateZ(0); }
+            100% { transform: translateY(0) rotate(var(--r)) translateZ(0); }
+        }
+
+        /* Positioning the 6 Images Randomly */
+        .float-img:nth-child(1) { top: 10%; left: 5%; --r: -15deg; animation-delay: 0s; }
+        .float-img:nth-child(2) { top: 15%; right: 10%; --r: 10deg; animation-delay: -1s; }
+        .float-img:nth-child(3) { top: 50%; left: -5%; --r: 20deg; animation-delay: -2s; width: 90px;}
+        .float-img:nth-child(4) { top: 60%; right: -5%; --r: -10deg; animation-delay: -3s; width: 100px;}
+        .float-img:nth-child(5) { bottom: 10%; left: 15%; --r: 5deg; animation-delay: -4s; }
+        .float-img:nth-child(6) { bottom: 15%; right: 20%; --r: -20deg; animation-delay: -5s; width: 120px; }
+
+
+        /* --- LAYER 2: MAIN CARD --- */
+        .container {
+            background: rgba(255, 255, 255, 0.90); 
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(233, 30, 99, 0.3);
+            text-align: center;
+            max-width: 90%;
+            width: 350px;
+            position: relative;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10; 
+            /* Optimize backdrop filter if supported, otherwise it falls back gracefully */
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+        }
+
+        /* Cute Image/Gif Area (Hidden in Step 1) */
+        .gif-container img {
+            width: 150px;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Baloo Da 2', cursive;
+            color: #d81b60;
+            font-size: 1.8rem;
+            margin-bottom: 30px; 
+            line-height: 1.4;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Button Styles */
+        button {
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-family: 'Baloo Da 2', cursive;
+            font-weight: 800;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: transform 0.1s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .btn-yes {
+            background-color: #e91e63;
+            color: white;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
+
+        .btn-no {
+            background-color: #f06292;
+            color: white;
+        }
+
+        /* The Final Message styling */
+        .hidden {
+            display: none;
+        }
+
+        .final-message {
+            font-family: 'Baloo Da 2', cursive;
+            color: #d81b60;
+            font-size: 1.5rem;
+            line-height: 1.4;
+            animation: popIn 0.5s ease;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="ray-container">
+        <div class="ray"></div>
+        <div class="ray"></div>
+        <div class="ray"></div>
+        <div class="ray"></div>
+    </div>
+
+    <div class="floating-photos">
+        <img src="images/pn1.png" class="float-img" alt="photo1">
+        <img src="images/pn2.png" class="float-img" alt="photo2">
+        <img src="images/pn3.png" class="float-img" alt="photo3">
+        <img src="images/pn4.png" class="float-img" alt="photo4">
+        <img src="images/pn5.png" class="float-img" alt="photo5">
+        <img src="images/pn6.png" class="float-img" alt="photo6">
+    </div>
+
+    <div class="container" id="mainCard">
+        <div id="step1">
+            <h1 id="question">Tui amar Valentine to lee? Babbyy 😋</h1>
+            
+            <div class="buttons">
+                <button class="btn-yes" id="yesBtn" onclick="finishJourney()">হ্যাঁ</button>
+                <button class="btn-no" id="noBtn" onclick="cyclePath()">না</button>
+            </div>
+        </div>
+
+        <div id="step2" class="hidden">
+            <div class="gif-container">
+                <img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" alt="Happy Bears">
+            </div>
+            <div class="final-message">
+                Ami Jantam 😁 Charar opchan nai le babby.<br><br>
+                Ummhaaaaaa 😘😘😘😘,<br>
+                Tu amal chob. Amal bou, gf, bestie, valentine chobb 😋😋
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Logic Variables
+        const questionText = document.getElementById('question');
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const step1 = document.getElementById('step1');
+        const step2 = document.getElementById('step2');
+
+        // Logic from your image
+        const rejectionMessages = [
+            "আর একবার ভেবে দেখো!",
+            "হ্যাঁ বলবে না?🥺",
+            "please মেনে যাও babby",
+            "হ্যাঁ টিপে দাও না babby 😋",
+            "elom kolich na.হ্যাঁ tep🥺...",
+            "Babby kende debo 😭. হ্যাঁ tep 😭",
+            "শেষ সুযোগ! হ্যাঁ বল প্রিয়া!",
+            "ভুল করছো babby 🥺 হ্যাঁ টিপে দাও!",
+            "Dhong marche 😒 হ্যাঁ tep 😒",
+            "Erom koccho babby 🥺 Ha tipe daw 😋",
+            "প্লিজ? হ্যাঁ টিপে দে 🥺",
+            "আচ্ছা, আর একবার ভাবো! দিয়ে হ্যাঁ টিপে দাও 😘",
+            "Valobastei Hobe 😏 No Option 😏😁😁😁!",
+        ];
+
+        let messageIndex = 0;
+        let currentSize = 1.2; // Current font size of Yes button in rem
+
+        function cyclePath() {
+            // 1. Change the Question text to a persuasive message
+            questionText.innerText = rejectionMessages[messageIndex];
+            
+            // 2. Cycle through messages or loop back
+            messageIndex = (messageIndex + 1) % rejectionMessages.length;
+
+            // 3. Make the YES button bigger every time they click NO
+            currentSize += 0.4;
+            yesBtn.style.fontSize = `${currentSize}rem`;
+
+            // Optional: If it gets too big, hide the No button entirely
+            if (currentSize > 4) {
+                noBtn.style.display = 'none';
+                questionText.innerText = "Valobastei Hobe 😏 No Option 😏😁😁😁!";
+            }
+        }
+
+        function finishJourney() {
+            // Hide Step 1, Show Step 2
+            step1.style.display = 'none';
+            step2.style.display = 'block';
+            step2.classList.remove('hidden');
+
+            // Trigger Confetti Celebration
+            launchConfetti();
+        }
+
+        // Confetti Effect function
+        function launchConfetti() {
+            var duration = 3 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 };
+
+            function randomInOut(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            var interval = setInterval(function() {
+                var timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                var particleCount = 50 * (timeLeft / duration);
+                
+                // Fire from left and right
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInOut(0.1, 0.3), y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInOut(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+        }
+    </script>
+</body>
+</html>
