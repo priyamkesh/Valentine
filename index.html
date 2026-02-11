@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Priya ❤️</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        /* বেসিক রিসেট */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* আপনার দেওয়া ব্যাকগ্রাউন্ড ইমেজ এখানে সেট করা হয়েছে */
+            background: url('bg.jpg') no-repeat center center/cover;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Hind Siliguri', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ব্যাকগ্রাউন্ড যাতে লেখার সাথে মিশে না যায় তার জন্য হালকা ওভারলে */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 182, 193, 0.2); /* হালকা গোলাপি আভা */
+            z-index: 0;
+        }
+
+        /* মূল কন্টেইনার (Glassmorphism এফেক্ট) */
+        .card {
+            background: rgba(255, 255, 255, 0.75); /* স্বচ্ছ সাদা ব্যাকগ্রাউন্ড */
+            backdrop-filter: blur(10px); /* ব্লার এফেক্ট */
+            -webkit-backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            max-width: 90%;
+            width: 600px;
+            text-align: center;
+            z-index: 1;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            animation: floatCard 6s ease-in-out infinite; /* ভাসমান অ্যানিমেশন */
+            position: relative;
+        }
+
+        /* লেখার স্টাইল */
+        h1 {
+            font-size: 2.5rem;
+            color: #d63384; /* গাঢ় গোলাপি */
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
+        }
+
+        .message-text {
+            font-size: 1.2rem;
+            color: #333; /* গাঢ় রঙ যাতে স্পষ্ট পড়া যায় */
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            text-align: justify;
+            font-weight: 600;
+        }
+
+        .highlight {
+            color: #c2185b;
+            font-weight: 700;
+        }
+
+        /* বাটন কন্টেইনার */
+        .action-area {
+            margin-top: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* হার্ট বাটন */
+        .heart-btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #ff5f6d, #ffc371);
+            border-radius: 50%;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(255, 95, 109, 0.4);
+            transition: transform 0.3s ease;
+            animation: pulse 1.5s infinite;
+            position: relative;
+        }
+
+        .heart-icon {
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        /* ক্লিক করার আঙুল */
+        .finger {
+            position: absolute;
+            bottom: -10px;
+            right: -15px;
+            font-size: 2rem;
+            animation: tap 1s ease-in-out infinite alternate;
+            pointer-events: none; /* যাতে ক্লিকে সমস্যা না হয় */
+        }
+
+        /* অ্যানিমেশন সমূহ */
+        @keyframes floatCard {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 95, 109, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(255, 95, 109, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 95, 109, 0); }
+        }
+
+        @keyframes tap {
+            0% { transform: translateY(0) rotate(-10deg); }
+            100% { transform: translateY(-10px) rotate(-10deg); }
+        }
+
+        /* রেসপন্সিভ ডিজাইন (মোবাইলের জন্য) */
+        @media (max-width: 600px) {
+            .card {
+                padding: 1.5rem;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .message-text {
+                font-size: 1rem;
+                text-align: center; /* মোবাইলে সেন্টারে ভালো দেখাবে */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>প্রিয়া ❤️</h1>
+        
+        <div class="message-text">
+            আমরা প্রায় <span class="highlight">২.৫ বছর</span> ধরে একসাথে আছি। এই সময়ে কত কিছু হয়ে গেল — হাসি, কান্না, রাগ, অভিমান, পাগলামি, স্বপ্ন… কিন্তু প্রতিটা মুহূর্তে আমরা একসাথেই ছিলাম। তুই আমার সবচেয়ে বড় শক্তি, আমার শান্তি, আমার বেস্ট ফ্রেন্ড, আমার সবকিছু।
+            <br><br>
+            আমরা সব পরিস্থিতি একসাথে কাটিয়ে উঠেছি। যেখানে অনেকেই ছেড়ে চলে যায়, সেখানেও আমরা হাত ধরে দাঁড়িয়ে থেকেছি। তুই আমার সব কথা শুনেছিস, আমার সব কষ্ট, সব আনন্দ ভাগ করে নিয়েছিস। আমার জীবনের প্রতিটা পাতায় তুই আছিস।
+            <br><br>
+            আমি চাই আমরা শুধু এই ২.৫ বছর নয়, <span class="highlight">পুরো জীবনটা</span> একসাথে কাটাতে পারি। ভালো সময় হোক বা খারাপ, আমরা যেন একসাথে থাকি, একসাথে লড়াই করি, একসাথে হাসি। আমি তোর সাথে একটা সাধারণ কিন্তু সুন্দর জীবন চাই — যেখানে থাকবে ভালোবাসা, বিশ্বাস আর আমাদের পাগলামো।
+            <br><br>
+            তাই এই ভ্যালেন্টাইন’স ডে-তে তোর কাছে আমার একটা প্রশ্ন —
+        </div>
+
+        <div class="action-area">
+            <a href="go.html" class="heart-btn">
+                <span class="heart-icon">❤️</span>
+            </a>
+            <div class="finger">👆</div>
+        </div>
+    </div>
+
+</body>
+</html>
