@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Valentine?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@400;800&family=Dancing+Script:wght@700&family=Pacifico&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        /* General Reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Baloo Da 2', cursive;
+            overflow: hidden;
+            position: relative;
+            /* Deep Dark Pink Background */
+            background: linear-gradient(135deg, #e91e63 0%, #ad1457 50%, #880e4f 100%);
+        }
+
+        /* --- LAYER 0: AURORA RAYS --- */
+        .ray-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0; 
+            pointer-events: none;
+        }
+
+        .ray {
+            position: absolute;
+            width: 150%;
+            height: 60px; 
+            background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255, 255, 255, 0.4), rgba(255,255,255,0));
+            filter: blur(15px);
+            transform-origin: center;
+            opacity: 0.8;
+            will-change: transform, opacity; 
+            transform: translateZ(0); 
+            animation: wave 8s ease-in-out infinite alternate;
+        }
+
+        .ray:nth-child(1) { top: 20%; left: -20%; transform: rotate(-20deg) translateZ(0); animation-duration: 7s; width: 200%; }
+        .ray:nth-child(2) { top: 50%; left: -20%; transform: rotate(-10deg) translateZ(0); animation-duration: 9s; animation-delay: -2s; width: 180%; }
+        .ray:nth-child(3) { top: 80%; left: -20%; transform: rotate(-30deg) translateZ(0); animation-duration: 11s; animation-delay: -4s; width: 150%; }
+        .ray:nth-child(4) { top: 10%; left: -10%; transform: rotate(15deg) translateZ(0); animation-duration: 15s; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255, 182, 193, 0.6), rgba(255,255,255,0)); }
+
+        @keyframes wave {
+            0% { transform: rotate(-25deg) translateY(0) scaleX(1) translateZ(0); opacity: 0.6; }
+            50% { transform: rotate(-20deg) translateY(30px) scaleX(1.1) translateZ(0); opacity: 1; } 
+            100% { transform: rotate(-15deg) translateY(-20px) scaleX(1) translateZ(0); opacity: 0.6; }
+        }
+
+        /* --- LAYER 1: FLOATING IMAGES (8 Images) --- */
+        .floating-photos {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1; 
+            pointer-events: none; 
+        }
+
+        .float-img {
+            position: absolute;
+            width: 100px; /* Slightly smaller to fit 8 images */
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            opacity: 0.9;
+            border: 3px solid rgba(255, 255, 255, 0.8);
+            will-change: transform;
+            backface-visibility: hidden;
+            perspective: 1000px;
+            animation: floatBob 6s ease-in-out infinite;
+        }
+
+        @keyframes floatBob {
+            0% { transform: translateY(0) rotate(var(--r)) translateZ(0); }
+            50% { transform: translateY(-20px) rotate(var(--r)) translateZ(0); }
+            100% { transform: translateY(0) rotate(var(--r)) translateZ(0); }
+        }
+
+        /* Random Positions for 8 Images */
+        .float-img:nth-child(1) { top: 5%; left: 5%; --r: -15deg; animation-delay: 0s; }
+        .float-img:nth-child(2) { top: 10%; right: 10%; --r: 10deg; animation-delay: -1s; }
+        .float-img:nth-child(3) { top: 35%; left: -5%; --r: 20deg; animation-delay: -2s; }
+        .float-img:nth-child(4) { top: 40%; right: -5%; --r: -10deg; animation-delay: -3s; }
+        .float-img:nth-child(5) { bottom: 25%; left: 10%; --r: 5deg; animation-delay: -4s; }
+        .float-img:nth-child(6) { bottom: 20%; right: 15%; --r: -20deg; animation-delay: -5s; }
+        .float-img:nth-child(7) { bottom: 5%; left: 30%; --r: 12deg; animation-delay: -1.5s; width: 90px; }
+        .float-img:nth-child(8) { top: 50%; left: 50%; transform: translate(-50%, -50%); --r: -8deg; animation-delay: -3.5s; opacity: 0.4; z-index: -1; } /* Center background photo */
+
+
+        /* --- LAYER 2: MAIN CARD (Glowing Sky Blue) --- */
+        .container {
+            background: rgba(255, 255, 255, 0.95); 
+            padding: 30px;
+            border-radius: 20px;
+            
+            /* GLOWING SKY BLUE BORDER EFFECT */
+            border: 2px solid #81d4fa; 
+            box-shadow: 0 0 20px #29b6f6, 0 0 40px rgba(41, 182, 246, 0.4); 
+
+            text-align: center;
+            max-width: 90%;
+            width: 350px;
+            position: relative;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10; 
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+        }
+
+        .gif-container img {
+            width: 160px;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 2px solid #fce4ec;
+        }
+
+        h1 {
+            font-family: 'Baloo Da 2', cursive;
+            color: #d81b60; 
+            font-size: 1.8rem;
+            margin-bottom: 30px; 
+            line-height: 1.4;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button {
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-family: 'Baloo Da 2', cursive;
+            font-weight: 800;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: transform 0.1s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .btn-yes {
+            background-color: #e91e63; /* Pink button */
+            color: white;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
+
+        .btn-no {
+            background-color: #f8bbd0; /* Light Pink button */
+            color: #880e4f;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* NEW FONT FOR FINAL RESULT */
+        .final-message {
+            font-family: 'Dancing Script', cursive; /* Fancy Font */
+            font-weight: 700;
+            color: #d81b60;
+            font-size: 1.8rem; /* Larger for script font */
+            line-height: 1.4;
+            animation: popIn 0.5s ease;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="ray-container">
+        <div class="ray"></div>
+        <div class="ray"></div>
+        <div class="ray"></div>
+        <div class="ray"></div>
+    </div>
+
+    <div class="floating-photos">
+        <img src="pn1.png" class="float-img" alt="photo1">
+        <img src="pn2.png" class="float-img" alt="photo2">
+        <img src="pn3.png" class="float-img" alt="photo3">
+        <img src="pn4.png" class="float-img" alt="photo4">
+        <img src="pn5.png" class="float-img" alt="photo5">
+        <img src="pn6.png" class="float-img" alt="photo6">
+        <img src="pn7.png" class="float-img" alt="photo7">
+        <img src="pn8.png" class="float-img" alt="photo8">
+    </div>
+
+    <div class="container" id="mainCard">
+        <div id="step1">
+            <h1 id="question">Tui amar Valentine to lee? Babbyy 😋</h1>
+            
+            <div class="buttons">
+                <button class="btn-yes" id="yesBtn" onclick="finishJourney()">হ্যাঁ</button>
+                <button class="btn-no" id="noBtn" onclick="cyclePath()">না</button>
+            </div>
+        </div>
+
+        <div id="step2" class="hidden">
+            <div class="gif-container">
+                <img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" alt="Happy Bears">
+            </div>
+            <div class="final-message">
+                Ami Jantam 😁 Charar opchan nai le babby.<br><br>
+                Ummhaaaaaa 😘😘😘😘,<br>
+                Tu amal chob. Amal bou, gf, bestie, valentine chobb 😋😋
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Logic Variables
+        const questionText = document.getElementById('question');
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const step1 = document.getElementById('step1');
+        const step2 = document.getElementById('step2');
+
+        const rejectionMessages = [
+            "আর একবার ভেবে দেখো!",
+            "হ্যাঁ বলবে না?🥺",
+            "please মেনে যাও babby",
+            "হ্যাঁ টিপে দাও না babby 😋",
+            "elom kolich na.হ্যাঁ tep🥺...",
+            "Babby kende debo 😭. হ্যাঁ tep 😭",
+            "শেষ সুযোগ! হ্যাঁ বল প্রিয়া!",
+            "ভুল করছো babby 🥺 হ্যাঁ টিপে দাও!",
+            "Dhong marche 😒 হ্যাঁ tep 😒",
+            "Erom koccho babby 🥺 Ha tipe daw 😋",
+            "প্লিজ? হ্যাঁ টিপে দে 🥺",
+            "আচ্ছা, আর একবার ভাবো! দিয়ে হ্যাঁ টিপে দাও 😘",
+            "Valobastei Hobe 😏 No Option 😏😁😁😁!",
+        ];
+
+        let messageIndex = 0;
+        let currentSize = 1.2; // Current font size of Yes button in rem
+
+        function cyclePath() {
+            // 1. Change the Question text
+            questionText.innerText = rejectionMessages[messageIndex];
+            
+            // 2. Cycle through messages or loop back
+            messageIndex = (messageIndex + 1) % rejectionMessages.length;
+
+            // 3. Make the YES button bigger
+            currentSize += 0.4;
+            yesBtn.style.fontSize = `${currentSize}rem`;
+
+            if (currentSize > 4) {
+                noBtn.style.display = 'none';
+                questionText.innerText = "Valobastei Hobe 😏 No Option 😏😁😁😁!";
+            }
+        }
+
+        function finishJourney() {
+            step1.style.display = 'none';
+            step2.style.display = 'block';
+            step2.classList.remove('hidden');
+            launchConfetti();
+        }
+
+        function launchConfetti() {
+            var duration = 3 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 };
+
+            function randomInOut(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            var interval = setInterval(function() {
+                var timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                var particleCount = 50 * (timeLeft / duration);
+                
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInOut(0.1, 0.3), y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInOut(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+        }
+    </script>
+</body>
+</html>
