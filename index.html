@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Piliyaaaa ❤️</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* বেসিক সেটআপ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* আপনার ব্যাকগ্রাউন্ড ইমেজ (ফাইলের নাম bg.jpg হতে হবে) */
+            background: url('bg.jpg') no-repeat center center/cover;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ব্যাকগ্রাউন্ডের উপর হালকা আভা যাতে লেখা স্পষ্ট হয় */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.1); /* খুব হালকা শ্যাডো */
+            z-index: 0;
+        }
+
+        /* মেইন কার্ড ডিজাইন (Glassmorphism) */
+        .card {
+            background: rgba(255, 255, 255, 0.85); /* স্বচ্ছ সাদা */
+            backdrop-filter: blur(12px); /* ব্লার এফেক্ট */
+            -webkit-backdrop-filter: blur(12px);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            max-width: 90%;
+            width: 500px;
+            text-align: center;
+            z-index: 1;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            
+            /* পুরো কার্ডটি একটু ভাসবে */
+            animation: floatCard 4s ease-in-out infinite;
+        }
+
+        /* হেডলাইন */
+        h1 {
+            font-size: 2.2rem;
+            color: #d63031; /* গাঢ় লাল */
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* প্যারাগ্রাফ টেক্সট */
+        .message-text {
+            font-size: 1.1rem;
+            color: #2d3436; /* গাঢ় গ্রে */
+            line-height: 1.6;
+            margin-bottom: 25px;
+            text-align: left; /* পড়ার সুবিধার জন্য বামে */
+        }
+
+        /* কিছু বিশেষ শব্দ হাইলাইট করার জন্য */
+        .highlight {
+            color: #e84393; /* পিঙ্ক */
+            font-weight: 600;
+            background: rgba(232, 67, 147, 0.1);
+            padding: 0 4px;
+            border-radius: 4px;
+        }
+
+        /* বাটন সেকশন */
+        .btn-container {
+            margin-top: 30px;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* হার্ট বাটন */
+        .heart-btn {
+            background: linear-gradient(135deg, #ff7675, #d63031);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            font-size: 30px;
+            box-shadow: 0 10px 20px rgba(214, 48, 49, 0.3);
+            transition: transform 0.3s;
+            
+            /* হার্টবিট এনিমেশন */
+            animation: heartbeat 1.5s infinite;
+        }
+
+        .heart-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* আঙুল নির্দেশক */
+        .finger {
+            font-size: 2rem;
+            position: absolute;
+            bottom: -10px;
+            right: -20px;
+            animation: tapFinger 1s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+
+        /* এনিমেশন ফ্রেমগুলো */
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 118, 117, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(255, 118, 117, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 118, 117, 0); }
+        }
+
+        @keyframes tapFinger {
+            0% { transform: translateY(0) rotate(-15deg); }
+            100% { transform: translateY(-10px) rotate(-15deg); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>Piliyaaaa ❤️</h1>
+        
+        <div class="message-text">
+            Dekh, amla akchate play <span class="highlight">2.5 year</span> dhole achi 🙂 ei time e onek hasi, kanna, jhogra, jhamela onek kithu oyethe. But akhono porjonto amra sathe achi. Tui amar sob kichu le. <span class="highlight">Bff, Gf, Wife sobkichuuuuuu.</span>
+            <br><br>
+            Onekta valobasi re tokee. Onekkkkk. Aad Valentine's Day. Tai valam je giffuu deboo kithu. But poloblem olo je <span class="highlight">Poicha nai 🥲</span>. Tai vablam je Coding er experience ache. Programming jokhon pari, rokhon seta kei use kori. Tai eta banalum. Jani pothondo obe 🫂
+            <br><br>
+            Tai aad akta prosnoo. Niche click kor 🙂 -
+        </div>
+
+        <div class="btn-container">
+            <a href="go.html" class="heart-btn">
+                ❤️
+            </a>
+            <div class="finger">👆</div>
+        </div>
+    </div>
+
+</body>
+</html>
